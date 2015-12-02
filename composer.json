@@ -1,5 +1,5 @@
 {
-  "name": "deanc/ExcelServiceProvider",
+  "name": "deanc/excel-service-provider",
   "type": "library",
   "description": "A wrapper for PHPExcel usage in Silex projects",
   "keywords": [
