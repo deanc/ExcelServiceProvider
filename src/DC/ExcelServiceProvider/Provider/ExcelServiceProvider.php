@@ -9,9 +9,8 @@ class ExcelServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {
-        $app['excel'] = $app->protect(function ($name) use ($app) {
-            $excelService = new \DC\ExcelServiceProvider\Generator\Excel();
-            return $excelService;
+        $app['excel'] = $app->share(function ($name) use ($app) {
+            return new \DC\ExcelServiceProvider\Generator\Excel();
         });
     }
 
