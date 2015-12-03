@@ -4,10 +4,6 @@ namespace DC\ExcelServiceProvider\Generator;
 
 class Excel {
 
-    function __construct() {
-
-    }
-
     public function generateXLS($headers, $data) {
 
         $objPHPExcel = new \PHPExcel(); // Create new PHPExcel object
@@ -34,5 +30,4 @@ class Excel {
         $contents = ob_get_clean();
         return $contents;
     }
-
 }
