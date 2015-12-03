@@ -11,14 +11,14 @@ class Excel {
         $A = 65;
         foreach($headers AS $k => $headerValue)
         {
-            $cellReference = chr(65+$k) . '1';
+            $cellReference = chr($A+$k) . '1';
             $objPHPExcel->getActiveSheet()->setCellValue($cellReference,$headerValue); // Add column heading data
         }
 
         foreach($data AS $k => $row)
         {
             foreach(array_keys($row) AS $number => $field) {
-                $cellLetter = chr(65+$number);
+                $cellLetter = chr($A+$number);
                 $cellNumber = $k+2; // start from the row below the headings
                 $objPHPExcel->getActiveSheet()->setCellValue($cellLetter.$cellNumber, $row["$field"]);
             }
