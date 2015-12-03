@@ -41,15 +41,17 @@ Forcing a download of the spreadsheet:
 ```php
         $controllers->get('/download', function () use($app) {
         
-            $excel = $app['excel']->generateXLSFromTable('tableName');
-        
-            $xlsName = 'tableName-' . date('Y-m-dhis') . '.xls';
-            header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
-            header("Content-Disposition: inline; filename=\"" . $xlsName . "\"");
-            header("Pragma: no-cache");
-            header("Expires: 0");
-            echo $excel;
-            exit;
+            $excel = $app['excel']->generateXLSFromTable('entry');
+
+            $xlsName = 'entries-' . date('Y-m-dhis') . '.xls';
+            $response = new Response($excel);
+            $response->headers->add(array(
+                'Content-Type' => 'application/vns.ms-excel'
+                ,'Content-Disposition' => 'inline; filename="' . $xlsName . '"'
+                ,'Pragma' => 'no-cache'
+                ,'Expired' => 0
+            ));
+            return $response;
                 
         })->bind('download');
 ```
