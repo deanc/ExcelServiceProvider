@@ -19,10 +19,13 @@ Register the provider in your application somewhere:
 
 Generate a spreadsheet from a table (if you are using the `DoctrineServiceProvider`):
 
+```php
         $excel = $app['excel']->generateXLSFromTable('tableName');
-        
+```        
+
 Generate a spreadsheet manually:
 
+```php
         $headers = array('ID', 'Name', 'Created');
         $data = array(
                 0 => array('id' => 1, 'name' => 'Bill Gates', 'created' => '2015-01-01 00:00'),
@@ -31,9 +34,11 @@ Generate a spreadsheet manually:
         );
 
         $excel = $app['excel']->generateXLS($headers, $results);
+```
         
 Forcing a download of the spreadsheet:
 
+```php
         $controllers->get('/download', function () use($app) {
         
             $excel = $app['excel']->generateXLSFromTable('tableName');
@@ -47,3 +52,4 @@ Forcing a download of the spreadsheet:
             exit;
                 
         })->bind('download');
+```
