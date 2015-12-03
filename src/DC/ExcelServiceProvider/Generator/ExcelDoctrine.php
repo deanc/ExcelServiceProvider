@@ -3,6 +3,7 @@
 namespace DC\ExcelServiceProvider\Generator;
 
 use Doctrine\DBAL\Connection;
+use DC\ExcelServiceProvider\Exception\InvalidTablenameException;
 
 class ExcelDoctrine extends Excel {
 
@@ -13,16 +14,22 @@ class ExcelDoctrine extends Excel {
     }
 
     public function generateXLSFromTable($tableName) {
-        $results = $this->doctrine->fetchAll("SELECT * FROM $tableName ORDER BY id ASC", array($tableName));
 
+        // First let's get the current database
         $databaseName = $this->doctrine->fetchColumn("SELECT DATABASE()");
 
+        // Get a list of the headers, and if there are none throw an exception
         $headers = $this->doctrine->fetchAll("
           SELECT COLUMN_NAME
           FROM INFORMATION_SCHEMA.COLUMNS
           WHERE TABLE_SCHEMA=?
           AND TABLE_NAME=?
         ", array($databaseName, $tableName));
+        if(sizeof($headers) === 0) {
+            throw new InvalidTablenameException('This is not a valid table name');
+        }
+
+        $results = $this->doctrine->fetchAll("SELECT * FROM $tableName ORDER BY id ASC");
 
         $headers = array_map(
             function ($value) { return ucwords($value); }
@@ -31,5 +38,4 @@ class ExcelDoctrine extends Excel {
 
         return $this->generateXLS($headers, $results);
     }
-
 }
