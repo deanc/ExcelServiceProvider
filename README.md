@@ -5,7 +5,7 @@
 This service provider for Silex allows you to quickly generate Excel (*.xls) spreadsheets. Either pass in a query result
 set, and a list of headers, or use the Doctrine functionality to convert a table to a spreadsheet.
 
-## Installations
+## Installation
 
 Require the provider using `composer`:
 
